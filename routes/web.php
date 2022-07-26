@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\PasienController;
+use App\Http\Controllers\PemeriksaanController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,16 +18,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/pasien', [EventController::class, 'index']);
-Route::get('/pasien/form', [EventController::class, 'create']);
-Route::post('/pasien/store', [EventController::class, 'store']);
-Route::get('/pasien/edit/{id}', [EventController::class, 'edit']);
-Route::put('/pasien/{id}', [EventController::class, 'update']);
-Route::delete('/pasien/{id}', [EventController::class, 'destroy']);
+Route::get('/pasien', [PasienController::class, 'index']);
+Route::get('/pasien/form', [PasienController::class, 'create']);
+Route::post('/pasien/store', [PasienController::class, 'store']);
+Route::get('/pasien/edit/{id}', [PasienController::class, 'edit']);
+Route::put('/pasien/{id}', [PasienController::class, 'update']);
+Route::delete('/pasien/{id}', [PasienController::class, 'destroy']);
+
+Route::get('/pemeriksaan', [PemeriksaanController::class, 'index']);
+Route::get('/pemeriksaan/form', [PemeriksaanController::class, 'create']);
+Route::post('/pemeriksaan/store', [PemeriksaanController::class, 'store']);
+Route::get('/pemeriksaan/edit/{id}', [PemeriksaanController::class, 'edit']);
+Route::put('/pemeriksaan/{id}', [PemeriksaanController::class, 'update']);
+Route::delete('/pemeriksaan/{id}', [PemeriksaanController::class, 'destroy']);

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pasien;
+use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
 
 class PemeriksaanController extends Controller
@@ -13,7 +15,9 @@ class PemeriksaanController extends Controller
      */
     public function index()
     {
-        
+        $nomor  = 1;
+        $periksa = Pemeriksaan::all();
+        return view('page.pemeriksaan.index', compact('periksa', 'nomor'));
     }
 
     /**
@@ -23,7 +27,8 @@ class PemeriksaanController extends Controller
      */
     public function create()
     {
-        //
+        $pasien = Pasien::all();
+        return view('page.pemeriksaan.form',compact('pasien'));
     }
 
     /**
@@ -34,7 +39,15 @@ class PemeriksaanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $periksa = new Pemeriksaan;
+
+        $periksa->tgl_periksa = $request->tgl;
+        $periksa->pasiens_id = $request->nama;
+        $periksa->keluhan = $request->keluhan;
+        $periksa->diagnosis = $request->diagnosis;
+        $periksa->save();
+
+        return redirect('/pemeriksaan');
     }
 
     /**
@@ -56,7 +69,9 @@ class PemeriksaanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pasien = Pasien::all();
+        $periksa = Pemeriksaan::find($id);
+        return view('page.pemeriksaan.edit',compact('periksa','pasien'));
     }
 
     /**
@@ -68,7 +83,15 @@ class PemeriksaanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $periksa = Pemeriksaan::find($id);
+
+        $periksa->tgl_periksa = $request->tgl;
+        $periksa->pasiens_id = $request->nama;
+        $periksa->keluhan = $request->keluhan;
+        $periksa->diagnosis = $request->diagnosis;
+        $periksa->save();
+
+        return redirect('/pemeriksaan');
     }
 
     /**
@@ -79,6 +102,9 @@ class PemeriksaanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $periksa = Pemeriksaan::find($id);
+        $periksa->delete();
+
+        return redirect('/pemeriksaan');
     }
 }

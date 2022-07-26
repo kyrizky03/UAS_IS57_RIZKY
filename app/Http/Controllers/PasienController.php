@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pasien;
 use Illuminate\Http\Request;
 
 class PasienController extends Controller
@@ -13,7 +14,9 @@ class PasienController extends Controller
      */
     public function index()
     {
-        //
+        $nomor  = 1;
+        $pasien = Pasien::all();
+        return view('page.pasien.index', compact('pasien', 'nomor'));
     }
 
     /**
@@ -23,7 +26,7 @@ class PasienController extends Controller
      */
     public function create()
     {
-        //
+        return view('page.pasien.form');
     }
 
     /**
@@ -34,7 +37,17 @@ class PasienController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pasien = new Pasien;
+
+        $pasien->nik = $request->nik;
+        $pasien->nm_pasien = $request->nama;
+        $pasien->tmpt_lahir = $request->tmpt;
+        $pasien->tgl_lahir = $request->tgl;
+        $pasien->alamat = $request->alamat;
+        $pasien->no_hp = $request->hp;
+        $pasien->save();
+
+        return redirect('/pasien');
     }
 
     /**
@@ -56,7 +69,8 @@ class PasienController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pasien = Pasien::find($id);
+        return view('page.pasien.edit', compact('pasien'));
     }
 
     /**
@@ -68,7 +82,17 @@ class PasienController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $pasien = Pasien::find($id); 
+
+        $pasien->nik = $request->nik;
+        $pasien->nm_pasien = $request->nama;
+        $pasien->tmpt_lahir = $request->tmpt;
+        $pasien->tgl_lahir = $request->tgl;
+        $pasien->alamat = $request->alamat;
+        $pasien->no_hp = $request->hp;
+        $pasien->save();
+
+        return redirect('/pasien');
     }
 
     /**
@@ -79,6 +103,9 @@ class PasienController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pasien = Pasien::find($id);
+        $pasien->delete();
+        
+        return redirect('/pasien');
     }
 }
