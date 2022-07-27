@@ -37,6 +37,7 @@ class PasienController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Pasien::class);
         $pasien = new Pasien;
 
         $pasien->nik = $request->nik;

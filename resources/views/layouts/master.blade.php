@@ -232,6 +232,7 @@
                                     </p>
                                 </a>
                             </li>
+                            @can('create', App\Pasien::class)
                             <li class="nav-item">
                                 <a href="/pasien" class="nav-link @yield('navPasien')">
                                     <i class="nav-icon fas fa-user-alt"></i>
@@ -240,6 +241,7 @@
                                     </p>
                                 </a>
                             </li>
+                            @endcan
                             <li class="nav-item">
                                 <a href="/pemeriksaan" class="nav-link @yield('navPeriksa')">
                                     <i class="nav-icon fas fa-clipboard"></i>
